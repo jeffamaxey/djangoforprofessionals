@@ -42,10 +42,8 @@ class BookTests(TestCase):
         self.client.logout()
         response = self.client.get(reverse('book_list'))
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(
-            response, '%s?next=/books/' % (reverse('account_login')))
-        response = self.client.get(
-            '%s?next=/books/' % (reverse('account_login')))
+        self.assertRedirects(response, f"{reverse('account_login')}?next=/books/")
+        response = self.client.get(f"{reverse('account_login')}?next=/books/")
         self.assertContains(response, 'Log In')
 
     def test_book_detail_view_with_permissions(self): # new
